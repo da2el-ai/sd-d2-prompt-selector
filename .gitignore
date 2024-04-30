@@ -1,0 +1,5 @@
+﻿node_modules
+scripts/__pycache__
+prompt_selector/__pycache__
+yarn.lock
+package-lock.json
