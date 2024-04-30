@@ -22,8 +22,12 @@ class D2PSPromptSelector {
      * 表示切り替えボタンなどを作成
      */
     createControl() {
-        this.t2iPromptSelector.createControl(this.getTags);
-        this.i2iPromptSelector.createControl(this.getTags);
+        this.t2iPromptSelector.createControl(async () => {
+            await this.getTags();
+        });
+        this.i2iPromptSelector.createControl(async () => {
+            await this.getTags();
+        });
     }
 
     /**
@@ -55,7 +59,6 @@ class D2PSPromptSelector {
         this.config = tags.__config__;
         delete tags['__config__'];
         this.tags = tags;
-        console.log('getTags', this.config, this.tags);
     }
 }
 

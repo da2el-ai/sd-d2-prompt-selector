@@ -27,7 +27,6 @@ class D2PSPromptSelectorUnit {
      * コンストラクタ
      */
     constructor(type = 'txt2img') {
-        console.log('D2PSPromptSelectorUnit constructor', type);
         this.type = type;
         this.visible = false;
         this.toNegative = false;
@@ -35,6 +34,9 @@ class D2PSPromptSelectorUnit {
         this.categories = [];
     }
 
+    /**
+     * 表示切り替えボタンなど基本コントローラー作成
+     */
     createControl(reloadClick: () => void) {
         // 表示切り替えボタン
         const button = D2PSElementBuilder.openButton({
@@ -62,7 +64,6 @@ class D2PSPromptSelectorUnit {
      * 初期化
      */
     init(tags: TTags, config: TConfig) {
-        console.log('init', this.type);
         this.tags = tags;
         this.config = config;
 
@@ -87,8 +88,6 @@ class D2PSPromptSelectorUnit {
      * タグ全体を格納したコンテナ
      */
     private $_getContainer(): HTMLElement {
-        console.log(`#${this.AREA_ID_BASE}${this.type}`);
-        console.log(gradioApp().querySelector(`#${this.AREA_ID_BASE}${this.type}`));
         return gradioApp().querySelector(`#${this.AREA_ID_BASE}${this.type}`);
     }
 
@@ -101,7 +100,7 @@ class D2PSPromptSelectorUnit {
 
         // ネガティブ送信チェックボックス
         const negativeCheckbox = D2PSElementBuilder.negativeCheckbox(
-            'ネガティブプロンプトに入力（ctrl + クリックでも可）',
+            'ネガティブプロンプトに入力（Ctrl/Command + クリックでも可）',
             {
                 onChange: (checked) => {
                     this.toNegative = checked;
@@ -135,7 +134,7 @@ class D2PSPromptSelectorUnit {
     private $_changeCategory() {
         this.categories.forEach((category: D2PSCategory) => {
             if (this.tabNavi!.activeCategory === category.categoryId) {
-                category.container.style.display = 'block';
+                category.container.style.display = 'flex';
             } else {
                 category.container.style.display = 'none';
             }
@@ -164,8 +163,6 @@ class D2PSPromptSelectorUnit {
 
     private $_addTag(tag: string, toNegative: boolean = false) {
         const id = toNegative || this.toNegative ? `${this.type}_neg_prompt` : `${this.type}_prompt`;
-        console.log('add tag', id);
-        console.log(gradioApp().getElementById(id));
         const textarea = gradioApp().getElementById(id).querySelector('textarea');
 
         if (textarea.value.trim() === '') {

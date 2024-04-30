@@ -39,7 +39,7 @@ class D2PSElementBuilder {
             size: 'sm',
             color: 'secondary',
         });
-        button.classList.add('d2ps-open-button');
+        button.classList.add('d2ps-button', 'd2ps-button--open');
         button.addEventListener('click', onClick);
         return button;
     }
@@ -60,6 +60,7 @@ class D2PSElementBuilder {
     static negativeCheckbox(text: string, { onChange }: IElementParams): HTMLElement {
         const checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
+        checkbox.classList.add('d2ps-checkbox');
         checkbox.addEventListener('change', () => {
             onChange!(checkbox.checked);
         });
@@ -130,7 +131,7 @@ class D2PSElementBuilder {
         { onClick = () => {}, onRightClick = () => {}, color = 'primary' }: IElementParams,
     ): HTMLButtonElement {
         const button = D2PSElementBuilder.baseButton(title, { color });
-        button.classList.add('d2ps-tag-button');
+        button.classList.add('d2ps-button', 'd2ps-button--tag');
         button.addEventListener('click', onClick);
         button.addEventListener('contextmenu', onRightClick);
         return button;
@@ -144,7 +145,7 @@ class D2PSElementBuilder {
         { onClick = () => {}, onRightClick = () => {}, color = 'primary' }: IElementParams,
     ): HTMLButtonElement {
         const button = D2PSElementBuilder.baseButton(title, { color });
-        button.classList.add('d2ps-tag-button');
+        button.classList.add('d2ps-button', 'd2ps-button--random');
         button.addEventListener('click', onClick);
         button.addEventListener('contextmenu', onRightClick);
         return button;

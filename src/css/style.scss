@@ -1,113 +1,139 @@
 .d2ps-action-container {
+    display: flex;
+    gap: 0.5em;
+    margin-top: 0.75em;
 }
 
 /* 全体コンテナ */
 /* 初期状態は非表示 */
 .d2ps-ps-container {
-  display: none;
-
-  /* カテゴリコンテナ */
-  /* 初期状態は非表示 */
-  /* .d2ps-category-container {
     display: none;
-} */
+}
 
-  /* グループコンテナ */
-  /* グループボタンとタグフィールドを含む */
-  /* .d2ps-group-container {
-    display: flex;
-    flex-direction: column;
-} */
+.d2ps-action-container,
+.d2ps-ps-container {
+    /* タグボタンを格納する枠 */
+    .d2ps-tag-field {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        min-width: min(320px, 100%);
+        max-width: 100%;
+        height: fit-content;
+        padding: 8px;
+        border: solid 1px var(--block-border-color, #374151);
+        border-radius: var(--block-radius, 8px);
+        flex: 1 1 calc(50% - 20px);
 
-  /* タグボタンを格納する枠 */
-  .d2ps-tag-field {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px;
-    min-width: min(320px, 100%);
-    max-width: 100%;
-    height: fit-content;
-    padding: 8px;
-    border: solid 1px var(--block-border-color, #374151);
-    border-radius: var(--block-radius, 8px);
-    flex: 1;
-  }
-
-  /* ランダムボタンも格納する枠 */
-  .d2ps-tag-field.d2ps-tag-field--with-random {
-  }
-
-  /* タグボタン */
-  .d2ps-button {
-    // 共通
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--button-small-padding);
-    border-radius: var(--button-small-radius);
-    box-shadow: var(--button-shadow);
-    text-align: center;
-    font-weight: var(--button-small-text-weight);
-    transition: var(--button-transition);
-
-    // カスタム要素
-    border: var(--button-border-width) solid
-      var(--d2ps-button--border-color, var(--button-secondary-border-color));
-    background: var(
-      --d2ps-button--background-fill,
-      var(--button-secondary-background-fill)
-    );
-    color: var(--d2ps-button--text-color, var(--button-secondary-text-color));
-
-    &:hover {
-      border-color: var(
-        --d2ps-button--border-color-hover,
-        var(--button-secondary-border-color-hover)
-      );
-      background: var(
-        --d2ps-button--background-fill-hover,
-        var(--button-secondary-background-fill-hover)
-      );
-      color: var(
-        --d2ps-button--text-color-hover,
-        var(--button-secondary-text-color-hover)
-      );
+        /* ランダムボタンも格納する枠 */
+        &.d2ps-tag-field.d2ps-tag-field--with-random {
+            flex-direction: column;
+        }
     }
 
-    &.d2ps-button--tag {
+    /* ボタン */
+    .d2ps-button {
+        // 共通
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: var(--button-small-padding);
+        border-radius: var(--button-small-radius);
+        box-shadow: var(--button-shadow);
+        text-align: center;
+        font-weight: var(--button-small-text-weight);
+        transition: var(--button-transition);
+
+        // カスタム要素
+        border: var(--button-border-width) solid var(--d2ps-button--border-color, var(--button-secondary-border-color));
+        background: var(--d2ps-button--background-fill, var(--button-secondary-background-fill));
+        color: var(--d2ps-button--text-color, var(--button-secondary-text-color));
+
+        &:hover {
+            border-color: var(--d2ps-button--border-color-hover, var(--button-secondary-border-color-hover));
+            background: var(--d2ps-button--background-fill-hover, var(--button-secondary-background-fill-hover));
+            color: var(--d2ps-button--text-color-hover, var(--button-secondary-text-color-hover));
+        }
+
+        // タグボタン
+        &.d2ps-button--tag {
+        }
+
+        // ランダムボタン
+        &.d2ps-button--random {
+            --d2ps-button--border-color: var(--button-primary-border-color);
+            --d2ps-button--background-fill: var(--button-primary-background-fill);
+            --d2ps-button--text-color: var(--button-primary-text-color);
+            --d2ps-button--border-color-hover: var(--button-primary-border-color-hover);
+            --d2ps-button--background-fill-hover: var(--button-primary-background-fill-hover);
+            --d2ps-button--text-color-hover: var(--button-primary-text-color-hover);
+        }
+
+        /* タグリストを開くボタン */
+        &.d2ps-button--open {
+            flex: 1;
+        }
     }
 
-    &.d2ps-tag-button--random {
-      --d2ps-button--border-color: var(--button-primary-border-color);
-      --d2ps-button--background-fill: var(--button-primary-background-fill);
-      --d2ps-button--text-color: var(--button-primary-text-color);
-      --d2ps-button--border-color-hover: var(
-        --button-primary-border-color-hover
-      );
-      --d2ps-button--background-fill-hover: var(
-        --button-primary-background-fill-hover
-      );
-      --d2ps-button--text-color-hover: var(--button-primary-text-color-hover);
+    /* チェックボックス */
+    .d2ps-checkbox {
+        --ring-color: transparent;
+        position: relative;
+        box-shadow: var(--input-shadow);
+        border: 1px solid var(--checkbox-border-color);
+        border-radius: var(--checkbox-border-radius);
+        background-color: var(--checkbox-background-color);
+        line-height: var(--line-sm);
+
+        &:checked {
+            border-color: var(--checkbox-border-color-selected);
+            background-image: var(--checkbox-check);
+            background-color: var(--checkbox-background-color-selected);
+        }
     }
-  }
 
-  /* タグリストを開くボタン */
-  .d2ps-open-button {
-  }
+    /* ラベル */
+    .d2ps-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: var(--body-text-color);
+        font-weight: var(--checkbox-label-text-weight);
+        font-size: var(--checkbox-label-text-size);
+        line-height: var(--line-md);
+    }
+    /* ラベルテキスト */
+    .d2ps-label__text {
+        margin-left: var(--size-2);
+    }
 
-  /* ラベル */
-  .d2ps-label {
-  }
-  /* ラベルテキスト */
-  .d2ps-label__text {
-  }
+    /* タブボタン */
+    .d2ps-tab-button {
+        margin-bottom: -1px;
+        border: 1px solid transparent;
+        border-color: transparent;
+        border-bottom: none;
+        border-top-right-radius: var(--container-radius);
+        border-top-left-radius: var(--container-radius);
+        padding: var(--size-1) var(--size-4);
+        color: var(--body-text-color-subdued);
+        font-weight: var(--section-header-text-weight);
+        font-size: var(--section-header-text-size);
 
-  /* タブボタン */
-  .d2ps-tab-button {
-  }
+        &[data-active='true'] {
+            border-color: var(--border-color-primary);
+            background: var(--background-fill-primary);
+            color: var(--body-text-color);
+        }
 
-  /* タブコンテナ */
-  .d2ps-tab-nav {
-  }
+        &:hover {
+            color: var(--body-text-color);
+        }
+    }
+
+    /* タブコンテナ */
+    .d2ps-tab-nav {
+        margin-top: var(--layout-gap);
+    }
 }
