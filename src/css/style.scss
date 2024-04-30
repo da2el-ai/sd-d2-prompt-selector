@@ -136,4 +136,62 @@
     .d2ps-tab-nav {
         margin-top: var(--layout-gap);
     }
+
+    // 検索インプット
+    .d2ps-search-input {
+        display: block;
+        position: relative;
+        outline: none !important;
+        box-shadow: var(--input-shadow);
+        background: var(--input-background-fill);
+        padding: var(--input-padding);
+        flex: 1;
+        color: var(--body-text-color);
+        font-size: var(--input-text-size);
+        line-height: var(--line-sm);
+        border: var(--input-border-width) solid var(--input-border-color);
+        border-radius: var(--input-radius);
+    }
+
+    // 検索コンテナ
+    .d2ps-search-container {
+        display: flex;
+        gap: 0.5em;
+        margin-top: 0.75em;
+    }
+}
+
+// ツールチップ
+.d2ps-tooltip-container {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    color: #fff;
+    pointer-events: none;
+    opacity: 1;
+
+    &[data-show='true'] {
+        display: block;
+        opacity: 1;
+    }
+    &[data-show='false'] {
+        display: block;
+        animation-name: d2ps-tooltip-hide;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes d2ps-tooltip-hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

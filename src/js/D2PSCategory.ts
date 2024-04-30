@@ -1,5 +1,7 @@
 import { D2PSElementBuilder } from './D2PSElementBuilder';
-import { TTags, TTagButtonClick } from './types';
+import { D2PSToolTip } from './D2PSToolTip';
+import { D2PSSearch } from './D2PSSearch';
+import { TTags, TTagButtonClick, TElementParams } from './types';
 
 ///////////////////
 class D2PSCategory {
@@ -14,6 +16,33 @@ class D2PSCategory {
         this.onRightClick = onRightClick;
         this.container = D2PSElementBuilder.tagField();
         this.container.style.display = 'none';
+    }
+
+    /**
+     * 検索を作る
+     */
+    createSearch(): HTMLElement {
+        this.container.classList.add('d2ps-tag-field--with-random');
+
+        // 検索入力
+        const search = new D2PSSearch();
+        const searchContainer = search.createSearchContainer((filtered: TTags) => {
+            // 過去の検索結果を削除
+            const children = this.container.children;
+            if (children.length >= 2) {
+                children[1].remove();
+            }
+            const buttonField = D2PSElementBuilder.tagField();
+            this.container.appendChild(buttonField);
+
+            // 検索結果のボタンを作る
+            this.$_createButtons(filtered, '').forEach((button) => {
+                buttonField.appendChild(button);
+            });
+        });
+        this.container.appendChild(searchContainer);
+
+        return this.container;
     }
 
     /**
@@ -83,7 +112,7 @@ class D2PSCategory {
         value: string,
         color = 'primary',
     ): HTMLButtonElement {
-        const param = {
+        const param: TElementParams = {
             onClick: (e: MouseEvent) => {
                 e.preventDefault();
                 this.onClick(value, e.metaKey || e.ctrlKey);
@@ -91,6 +120,12 @@ class D2PSCategory {
             onRightClick: (e: MouseEvent) => {
                 e.preventDefault();
                 this.onRightClick(value, e.metaKey || e.ctrlKey);
+            },
+            onMouseEnter: () => {
+                D2PSToolTip.showTip(value);
+            },
+            onMouseLeave: () => {
+                D2PSToolTip.hideTip();
             },
             color,
         };

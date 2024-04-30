@@ -21,16 +21,16 @@ class D2PromptSelector:
             elem_id='d2_ps_reload_button_' + type
         )
         reload_button.style(size='sm')
-        reload_button.click(fn=cls.__reload)
+        # reload_button.click(fn=cls.__reload)
 
         return [reload_button]
 
 
-    ############################
-    # タグファイルリロード
-    @classmethod
-    def __reload(cls):
-        TagsUtil.load_tags()
+    # ############################
+    # # タグファイルリロード
+    # @classmethod
+    # def __reload(cls):
+    #     TagsUtil.load_tags()
 
 
     ############################

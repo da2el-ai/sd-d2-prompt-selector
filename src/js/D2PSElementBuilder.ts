@@ -1,11 +1,7 @@
-interface IElementParams {
-    size?: string;
-    color?: string;
-    onClick?: (e: MouseEvent) => void;
-    onRightClick?: (e: MouseEvent) => void;
-    onChange?: (checked: boolean) => void;
-}
 // onClick: (elm: HTMLButtonElement, ev: MouseEvent) => void;
+
+import { TElementParams } from './types';
+import { D2PSSearch } from './D2PSSearch';
 
 /*********************************************************
  * UI作成クラス
@@ -16,7 +12,7 @@ class D2PSElementBuilder {
      * @param {*} text ボタンに表示するテキスト
      * @param {*} param1 サイズ、色の指定
      */
-    static baseButton(text: string, { size = 'sm', color = 'primary' }: IElementParams): HTMLButtonElement {
+    static baseButton(text: string, { size = 'sm', color = 'primary' }: TElementParams): HTMLButtonElement {
         const button = document.createElement('button');
         button.classList.add(
             // gradio 3.16
@@ -34,7 +30,7 @@ class D2PSElementBuilder {
     /**
      * タグリストを開くボタン
      */
-    static openButton({ onClick = () => {} }: IElementParams): HTMLButtonElement {
+    static openButton({ onClick = () => {} }: TElementParams): HTMLButtonElement {
         const button = D2PSElementBuilder.baseButton('🔯タグを選択', {
             size: 'sm',
             color: 'secondary',
@@ -57,7 +53,7 @@ class D2PSElementBuilder {
     /**
      * ネガティブ送信チェックボックス
      */
-    static negativeCheckbox(text: string, { onChange }: IElementParams): HTMLElement {
+    static negativeCheckbox(text: string, { onChange }: TElementParams): HTMLElement {
         const checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
         checkbox.classList.add('d2ps-checkbox');
@@ -88,7 +84,7 @@ class D2PSElementBuilder {
     /**
      * タブボタン
      */
-    static tabButton(text: string, { onClick = () => {} }: IElementParams): HTMLButtonElement {
+    static tabButton(text: string, { onClick = () => {} }: TElementParams): HTMLButtonElement {
         const button = D2PSElementBuilder.baseButton(text, {});
         button.addEventListener('click', onClick);
         button.classList.add('d2ps-tab-button');
@@ -128,12 +124,20 @@ class D2PSElementBuilder {
      */
     static tagButton(
         title: string,
-        { onClick = () => {}, onRightClick = () => {}, color = 'primary' }: IElementParams,
+        {
+            onClick = () => {},
+            onRightClick = () => {},
+            onMouseEnter = () => {},
+            onMouseLeave = () => {},
+            color = 'primary',
+        }: TElementParams,
     ): HTMLButtonElement {
         const button = D2PSElementBuilder.baseButton(title, { color });
         button.classList.add('d2ps-button', 'd2ps-button--tag');
         button.addEventListener('click', onClick);
         button.addEventListener('contextmenu', onRightClick);
+        button.addEventListener('mouseenter', onMouseEnter);
+        button.addEventListener('mouseleave', onMouseLeave);
         return button;
     }
 
@@ -142,13 +146,47 @@ class D2PSElementBuilder {
      */
     static randomButton(
         title: string,
-        { onClick = () => {}, onRightClick = () => {}, color = 'primary' }: IElementParams,
+        { onClick = () => {}, onRightClick = () => {}, color = 'primary' }: TElementParams,
     ): HTMLButtonElement {
         const button = D2PSElementBuilder.baseButton(title, { color });
         button.classList.add('d2ps-button', 'd2ps-button--random');
         button.addEventListener('click', onClick);
         button.addEventListener('contextmenu', onRightClick);
         return button;
+    }
+
+    /**
+     * ツールチップ
+     */
+    static toolTipContainer() {
+        const container = document.createElement('div');
+        container.classList.add('d2ps-tooltip-container');
+        return container;
+    }
+
+    /**
+     * 検索入力エリア
+     */
+    static searchContainer(input: HTMLInputElement, { onClick = () => {} }: TElementParams) {
+        const container = document.createElement('div');
+        container.classList.add('d2ps-search-container');
+        container.appendChild(input);
+
+        const button = D2PSElementBuilder.baseButton(`${D2PSSearch.ICON}検索`, {
+            size: 'sm',
+            color: 'secondary',
+        });
+        button.classList.add('d2ps-button');
+        button.addEventListener('click', onClick);
+        container.appendChild(button);
+
+        return container;
+    }
+
+    static searchInput(): HTMLInputElement {
+        const input = document.createElement('input');
+        input.classList.add('d2ps-search-input');
+        return input;
     }
 }
 

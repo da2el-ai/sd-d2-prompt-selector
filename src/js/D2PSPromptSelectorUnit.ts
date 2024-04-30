@@ -48,6 +48,7 @@ class D2PSPromptSelectorUnit {
         // タグ再読み込みボタン
         const reloadButton = gradioApp().getElementById(`d2_ps_reload_button_${this.type}`);
         reloadButton.addEventListener('click', async () => {
+            // console.log('reload click');
             await reloadClick();
         });
 
@@ -159,8 +160,25 @@ class D2PSPromptSelectorUnit {
             psContainer.appendChild(categoryContainer);
             this.categories.push(category);
         });
+
+        // 検索を作る
+        const searchCategory = new D2PSCategory(
+            '🔍',
+            (tag: string, toNegative: boolean = false) => {
+                this.$_addTag(tag, toNegative);
+            },
+            (tag: string, toNegative: boolean = false) => {
+                this.$_removeTag(tag, toNegative);
+            },
+        );
+        const categoryContainer = searchCategory.createSearch();
+        psContainer.appendChild(categoryContainer);
+        this.categories.push(searchCategory);
     }
 
+    /**
+     * タグをプロンプトエリアに追加
+     */
     private $_addTag(tag: string, toNegative: boolean = false) {
         const id = toNegative || this.toNegative ? `${this.type}_neg_prompt` : `${this.type}_prompt`;
         const textarea = gradioApp().getElementById(id).querySelector('textarea');
@@ -176,6 +194,9 @@ class D2PSPromptSelectorUnit {
         updateInput(textarea);
     }
 
+    /**
+     * タグをプロンプトから削除
+     */
     private $_removeTag(tag: string, toNegative: boolean = false) {
         const id = toNegative || this.toNegative ? `${this.type}_neg_prompt` : `${this.type}_prompt`;
         const textarea = gradioApp().getElementById(id).querySelector('textarea');

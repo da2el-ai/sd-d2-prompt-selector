@@ -1,6 +1,7 @@
 /* global gradioApp */
 
 import { D2PSPromptSelectorUnit } from './D2PSPromptSelectorUnit';
+import { D2PSSearch } from './D2PSSearch';
 import { TConfig, TTags } from './types';
 
 class D2PSPromptSelector {
@@ -20,13 +21,14 @@ class D2PSPromptSelector {
 
     /**
      * 表示切り替えボタンなどを作成
+     * 再読み込みボタンの動作も指定
      */
     createControl() {
-        this.t2iPromptSelector.createControl(async () => {
-            await this.getTags();
+        this.t2iPromptSelector.createControl(() => {
+            this.init();
         });
-        this.i2iPromptSelector.createControl(async () => {
-            await this.getTags();
+        this.i2iPromptSelector.createControl(() => {
+            this.init();
         });
     }
 
@@ -59,6 +61,9 @@ class D2PSPromptSelector {
         this.config = tags.__config__;
         delete tags['__config__'];
         this.tags = tags;
+
+        // 検索用に設定
+        D2PSSearch.setTags(tags);
     }
 }
 

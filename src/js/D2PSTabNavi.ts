@@ -1,5 +1,6 @@
 import { D2PSElementBuilder } from './D2PSElementBuilder';
-import { TConfig, TTags } from './types';
+import { D2PSSearch } from './D2PSSearch';
+import { TConfig, TTags, TTagsDict } from './types';
 
 class D2PSTabButton {
     button: HTMLButtonElement;
@@ -38,8 +39,13 @@ class D2PSTabNavi {
         const idList = Object.keys(tags);
         const sortItems: string[] = Array.from(new Set([...config.sort, ...idList]));
         const container = D2PSElementBuilder.tabContainer();
+        // 検索用タブを追加
+        sortItems.push(D2PSSearch.ICON);
 
         sortItems.forEach((id: string) => {
+            // ソート指定にあるが、実際にタグカテゴリが存在しないものは無視
+            if (id !== D2PSSearch.ICON && !(tags as TTagsDict).hasOwnProperty(id)) return;
+
             const tabButton = new D2PSTabButton(id, () => {
                 this.$_clickTabButton(id);
             });
