@@ -2,10 +2,6 @@
 
 ## About
 
-This is an extension of the Stable Diffusion webui AUTOMATIC1111 version (hereinafter referred to as webui).
-
-I have redesigned [Easy Prompt Selector](https://github.com/blue-pen5805/sdweb-easy-prompt-selector) by Blue Pen to my liking.
-
 Stable Diffusion webui AUTOMATIC1111版（以下 webui）の機能拡張です。
 
 ぶるぺん氏の [Easy Prompt Selector](https://github.com/blue-pen5805/sdweb-easy-prompt-selector) を自分の好みに作り直しました。
