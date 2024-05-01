@@ -35,7 +35,7 @@ def on_ui_settings():
         key = "d2_ps_enable_save_raw_prompt_to_pnginfo",
         info = shared.OptionInfo(
             False,
-            label = "元プロンプトを pngninfo に保存する",
+            label = "元プロンプトを pngInfo に保存する",
             section = section
         ),
     )
