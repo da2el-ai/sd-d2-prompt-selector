@@ -7,7 +7,7 @@ def on_ui_settings():
         key="d2_ps_tags_dir",
         info=shared.OptionInfo(
             "",
-            label="タグファイルを置いたフォルダ。無指定の時は機能拡張フォルダの tags フォルダ",
+            label="タグフォルダ（無指定の時は機能拡張フォルダの tags フォルダ）",
             section=section,
         ),
     )
