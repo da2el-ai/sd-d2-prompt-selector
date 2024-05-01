@@ -1,43 +1,49 @@
 # D2 Prompt Selector
 
+[[日本語](README_ja.md)]
+
 ## About
 
-Stable Diffusion webui AUTOMATIC1111版（以下 webui）の機能拡張です。
+This is an extension of the Stable Diffusion webui AUTOMATIC1111 version (hereinafter referred to as webui).
 
-ぶるぺん氏の [Easy Prompt Selector](https://github.com/blue-pen5805/sdweb-easy-prompt-selector) を自分の好みに作り直しました。
+I have redesigned [Easy Prompt Selector](https://github.com/blue-pen5805/sdweb-easy-prompt-selector) by Blue Pen to my liking.
 
 
 <img src="./img/screen_about.jpg">
 
-### 基本機能
-- タグボタンをクリックするとプロンプト入力欄にタグを挿入する
-- オレンジ色のボタン（グループ名）をクリックするとランダムタグを挿入する
-- キーボードの `Ctrl`（Macは`Command`） を押しながらクリックするとネガティブプロンプトに挿入する
-- 右クリックだとプロンプトから削除される（失敗する時もある）
+### Basic Functions
+- Clicking on a tag button inserts the tag into the prompt input field.
+- Clicking on an orange button (group name) inserts a random tag.
+- Pressing Ctrl (or Command on Mac) while clicking inserts a negative prompt.
+- Right-clicking removes the prompt (may fail sometimes).
 
-### 本家 Easy Prompt Selector との違い
-- タグファイルを任意の場所に置ける（OneDrive / Dropbox なども可能）
-- タグボタンにマウスホバーすると画面下部に内容を表示する（要設定）
-- タグ、ボタン名から検索ができる
-- タグファイルの並び順を指定できる
+### Differences from the original Easy Prompt Selector
+- You can place tag files anywhere you want (including OneDrive / Dropbox).
+- Hovering over tag buttons displays their contents at the bottom of the screen (requires configuration).
+- You can search by tag or button name.
+- You can specify the order of tag files.
+
 
 
 ## Installation
 
-1. "Extensions" タブを開く
-2. "Install from URL" を開く
-3. `https://github.com/da2el-ai/sd-d2-prompt-selector` を "URL of the extension repository" に入力
-4. "Install" をクリックしてインストールが完了するのを待つ
-5. "Installed" を開き、"Apply and restart the UI" をクリック
+1. Open the "Extensions" tab.
+2. Open "Install from URL".
+3. Enter `https://github.com/da2el-ai/sd-d2-prompt-selector` in the "URL of the extension repository" field.
+4. Click "Install" and wait for the installation to complete.
+5. Open "Installed" and click "Apply and restart the UI".
+
 
 ## Edit Tag file
 
-タグファイルは  `{webuiインストールフォルダ}/extensions/sd-d2-prompt-selector/tags` に置かれています。
-設定の `タグファイルを置いたフォルダ` で任意の場所を指定できます。
+The tag files are located in `{webui installation folder}/extensions/sd-d2-prompt-selector/tags`.
 
-YAML形式ですのでテキストエディタで編集してください（VisualStudioCode推奨）。
+You can specify any location for the tag files in the `タグファイルを置いたフォルダ` setting.
 
-### タグファイルのサンプル
+Please edit them with a text editor (Visual Studio Code recommended) as they are in YAML format.
+
+
+### Sample tag files
 ```yaml
 髪色:
   単色:
@@ -52,31 +58,33 @@ YAML形式ですのでテキストエディタで編集してください（Visu
     スプリットカラー: split-color hair
 ```
 
-上記のYAMLは下記のように反映されます。
+The above YAML will be reflected as follows.
 
 <img src="./img/screen_yaml.png">
 
 ```yaml
-グループ名:
-  - タグそのまま
-グループ名:
-  名前: タグ
+group:
+  - tag
+group:
+  name: tag
 ```
 
-配列形式と辞書形式の両方が使えます。多層構造もできます。
+Both array and dictionary formats are available. You can also use nested structures.
 
-### タグファイルを編集したら表示されなくなった？
+### Edited tag file no longer appearing?
 
-だいたいYAMLの書式ミスです。[Online YAML Parser](https://qiita.com/YumaInaura/items/8e4c08821b6940299a27) などで書式チェックしてみてください。
+It's likely due to a YAML formatting error. Please try checking the formatting using tools like [Online YAML Parser](https://qiita.com/YumaInaura/items/8e4c08821b6940299a27).
 
-### 編集したので反映させたい
+### I want to reflect the changes I made
 
-再読み込みボタンで反映されます。
+They will be applied by clicking the reload button.
 
 <img src="./img/screen_reload.png">
 
-### タブ（タグファイル切り替えボタン）の並び順を設定したい
-タグフォルダにある `__config__.yml` で指定できます。
+### I want to set the order of tabs (tag file switch buttons)
+
+You can specify the order in the __config__.yml file in the tag folder.
+
 
 ```yaml
 sort:
@@ -85,30 +93,36 @@ sort:
   - 人_髪
 ```
 
-ここに記載していないファイルはファイル名順に並びます。
+Files not listed here will be sorted alphabetically by filename.
+
 
 ## Settings
 
-webuiの `Settings > D2 Prompt Selector` から行えます。
+You can configure it from `Settings > D2 Prompt Selector` in the webui.
 
-### タグフォルダ
-タグファイルの置いてあるフォルダをフルパスで指定します。
+### タグフォルダ / Tag Folder
 
-空欄の時は `{webuiインストールフォルダ}/extensions/sd-d2-prompt-selector/tags` を参照します。
+Specify the folder where tag files are located with the full path.
 
-### 検索結果をリアルタイムに表示する
-初期状態では【検索ボタンをクリックまたはEnterキーで検索結果を表示】ですが、この設定をONにすると【文字入力に合わせてリアルタイムで検索結果を表示】になります。
+When left blank, it defaults to `{webui installation folder}/extensions/sd-d2-prompt-selector/tags`.
 
-### タグボタンにマウスが乗ったら画面下端にプロンプトを表示する
-タグの内容をすぐに確認できます。
+### 検索結果をリアルタイムに表示する / Display search results in real-time
 
-### 元プロンプトを pngInfo に保存する
-ランダムタグを使った時、通常はランダム選択の結果をpnginfoに記録します。この設定がONになっているとランダムプロンプトを記録します。
+By default, the search results are displayed when you click the search button or press the Enter key. However, turning on this setting will display the search results in real-time as you type.
+
+
+### タグボタンにマウスが乗ったら画面下端にプロンプトを表示する / Display prompt at the bottom of the screen when hovering over tag buttons
+
+You can quickly check the contents of the tags.
+
+### 元プロンプトを pngInfo に保存する / Save the original prompt to pngInfo
+
+When using random tags, the result of the random selection is usually recorded in pnginfo. With this setting enabled, random prompts will also be recorded.
 
 ## Update
 
 - 2024.05.02
-  - とりあえず公開
+  - 1st release
 
 ## Licence
 
