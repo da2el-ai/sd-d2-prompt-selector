@@ -55,7 +55,7 @@ const tagSearch = (convedTags: TConvedTags, keyword: string): TTagsDict => {
         if (key === '___') return;
 
         const value = convedTags[key];
-        if (value.includes(keyword)) {
+        if (key.includes(keyword) || value.includes(keyword)) {
             filtered[key] = value;
         }
     });
