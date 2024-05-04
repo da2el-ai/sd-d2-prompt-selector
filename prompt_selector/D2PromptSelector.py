@@ -18,9 +18,9 @@ class D2PromptSelector:
         reload_button = gr.Button(
             value='🔄',
             variant='secondary',
-            elem_id='d2_ps_reload_button_' + type
+            elem_id='d2_ps_reload_button_' + type,
+            size='sm'
         )
-        reload_button.style(size='sm')
         # reload_button.click(fn=cls.__reload)
 
         return [reload_button]
