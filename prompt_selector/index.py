@@ -1,16 +1,10 @@
 import modules.scripts as scripts
 from modules.scripts import AlwaysVisible
 
-from prompt_selector import callbacks
 from prompt_selector.D2PromptSelector import D2PromptSelector
 
+
 class Script(scripts.Script):
-    def __init__(self):
-      super().__init__()
-
-      callbacks.register_settings()
-      callbacks.register_apis()
-
     def title(self):
         return "D2 Prompt Selector"
 
