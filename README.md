@@ -8,6 +8,7 @@ This is an extension of the Stable Diffusion webui AUTOMATIC1111 version (herein
 
 I have redesigned [Easy Prompt Selector](https://github.com/blue-pen5805/sdweb-easy-prompt-selector) by Blue Pen to my liking.
 
+Currently, only Japanese is supported.
 
 <img src="./img/screen_about.jpg">
 
